@@ -1,0 +1,162 @@
+" ------------MyConfig----------------"
+" --plugins
+" vim-singleton
+" vim-indent-guides
+" nerdtree
+" vim-nerdtree-tabs
+" --color
+" molokai.vim
+" jellybeans.vim
+"
+" cd %userprofile%
+" mkdir .\vimfiles
+" mkdir .\vimfiles\pack
+" mkdir .\vimfiles\pack\colors
+" mkdir .\vimfiles\pack\my
+" mkdir .\vimfiles\pack\my\opt
+" mkdir .\vimfiles\pack\my\start
+" cd %userprofile%\vimfiles
+" git clone https://github.com/tomasr/molokai.git
+" cd %userprofile%\vimfiles\pack\my\start
+" git clone https://github.com/scrooloose/nerdtree.git
+" git clone https://github.com/jistr/vim-nerdtree-tabs.git
+" git clone https://github.com/nathanaelkane/vim-indent-guides.git
+" git clone https://github.com/thinca/vim-singleton.git
+" ------------------------------------
+
+" フォントサイズ
+if has('win32')
+  " Windows用
+  set guifont=MS_Gothic:h10:cSHIFTJIS
+  " 行間隔の設定
+  set linespace=1
+  " 一部のUCS文字の幅を自動計測して決める
+  if has('kaoriya')
+    set ambiwidth=auto
+  endif
+elseif has('mac')
+  set guifont=Osaka－等幅:h14
+elseif has('xfontset')
+  " UNIX用 (xfontsetを使用)
+  set guifontset=a14,r14,k14
+endi
+
+"タブ設定"
+set showtabline=2
+
+"行番号表示"
+set number
+
+"　コメントの色を変更.
+autocmd ColorScheme * highlight Comment ctermfg=22 guifg=#00b500 guibg=#300060
+" カラースキーム
+colorscheme molokai
+
+" Windowsキーバインド
+source $VIMRUNTIME/mswin.vim
+
+" ドラッグ＆ドロップを新しいタブに開く
+autocmd VimEnter * tab all
+autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
+
+" ウインドウの位置とサイズを記憶する
+let g:save_window_file = expand('$HOME/.vimwinpos')
+augroup SaveWindow
+  autocmd!
+  autocmd VimLeavePre * call s:save_window()
+  function! s:save_window()
+    let options = [
+      \ 'set columns=' . &columns,
+      \ 'set lines=' . &lines,
+      \ 'winpos ' . getwinposx() . ' ' . getwinposy(),
+      \ ]
+    call writefile(options, g:save_window_file)
+  endfunction
+augroup END
+
+if filereadable(g:save_window_file)
+  execute 'source' g:save_window_file
+endif
+
+"インクリメンタル検索
+set incsearch
+set wildmenu wildmode=list:full
+
+" シンタックスハイライト
+syntax on
+set cursorline
+
+"swap ファイルを生成しない
+set noswapfile
+set noundofile
+set nobackup
+
+" タブ幅
+set tabstop=4
+set shiftwidth=4
+
+" これで補完が自動で出るらしい
+set completeopt=menuone
+for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
+  exec "imap <expr> " . k . " pumvisible() ? '" . k . "' : '" . k . "\<C-X>\<C-P>\<C-N>'"
+endfor
+
+" ビープ音削除
+set visualbell t_vb=
+
+" https://sites.google.com/site/fudist/Home/vim-nihongo-ban/-vimrc-sample
+""""""""""""""""""""""""""""""
+" 挿入モード時、ステータスラインの色を変更
+""""""""""""""""""""""""""""""
+let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
+
+if has('syntax')
+  augroup InsertHook
+    autocmd!
+    autocmd InsertEnter * call s:StatusLine('Enter')
+    autocmd InsertLeave * call s:StatusLine('Leave')
+  augroup END
+endif
+
+let s:slhlcmd = ''
+function! s:StatusLine(mode)
+  if a:mode == 'Enter'
+    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+    silent exec g:hi_insert
+  else
+    highlight clear StatusLine
+    silent exec s:slhlcmd
+  endif
+endfunction
+
+function! s:GetHighlight(hi)
+  redir => hl
+  exec 'highlight '.a:hi
+  redir END
+  let hl = substitute(hl, '[\r\n]', '', 'g')
+  let hl = substitute(hl, 'xxx', '', '')
+  return hl
+endfunction
+""""""""""""""""""""""""""""""
+
+"format
+ set fencs=utf-8,sjis,cp932,euc-jp,iso-2022-jp,ucs-bom,ucs-2le,ucs-2
+ set fileformats=unix,dos,mac
+
+" シングルトン化
+call singleton#enable()
+
+" vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
+call indent_guides#enable()
+
+" NERDTree
+" 隠しファイルを表示する
+let NERDTreeShowHidden = 1
+
+nnoremap <silent><C-e> :NERDTreeFocusToggle<CR>
+
+" デフォルトでツリーを表示させる
+let g:nerdtree_tabs_open_on_console_startup=1
+
+" 他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる。
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

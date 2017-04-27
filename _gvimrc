@@ -1,4 +1,4 @@
-" ------------MyConfig----------------"
+ï»¿" ------------MyConfig----------------"
 " --plugins
 " vim-singleton
 " vim-indent-guides
@@ -22,44 +22,50 @@
 " git clone https://github.com/jistr/vim-nerdtree-tabs.git
 " git clone https://github.com/nathanaelkane/vim-indent-guides.git
 " git clone https://github.com/thinca/vim-singleton.git
+" git clone https://github.com/itchyny/vim-highlighturl.git
 " ------------------------------------
 
-" ƒtƒHƒ“ƒgƒTƒCƒY
+" ãƒ•ã‚©ãƒ³ãƒˆã‚µã‚¤ã‚º
 if has('win32')
-  " Windows—p
-  set guifont=MS_Gothic:h10:cSHIFTJIS
-  " sŠÔŠu‚Ìİ’è
+  " Windowsç”¨
+  set guifont=MS_Gothic:h9:cSHIFTJIS
+  "set guifont=Consolas:h10,Lucida_Console:h10:w5 guifontwide=MS_Gothic:h10
+  " è¡Œé–“éš”ã®è¨­å®š
   set linespace=1
-  " ˆê•”‚ÌUCS•¶š‚Ì•‚ğ©“®Œv‘ª‚µ‚ÄŒˆ‚ß‚é
+  " ä¸€éƒ¨ã®UCSæ–‡å­—ã®å¹…ã‚’è‡ªå‹•è¨ˆæ¸¬ã—ã¦æ±ºã‚ã‚‹
   if has('kaoriya')
     set ambiwidth=auto
   endif
 elseif has('mac')
-  set guifont=Osaka|“™•:h14
+  set guifont=Osakaï¼ç­‰å¹…:h14
 elseif has('xfontset')
-  " UNIX—p (xfontset‚ğg—p)
+  " UNIXç”¨ (xfontsetã‚’ä½¿ç”¨)
   set guifontset=a14,r14,k14
 endi
 
-"ƒ^ƒuİ’è"
+set encoding=utf-8
+set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileformats=unix,dos,mac
+
+"ã‚¿ãƒ–è¨­å®š"
 set showtabline=2
 
-"s”Ô†•\¦"
+"è¡Œç•ªå·è¡¨ç¤º"
 set number
 
-"@ƒRƒƒ“ƒg‚ÌF‚ğ•ÏX.
+"ã€€ã‚³ãƒ¡ãƒ³ãƒˆã®è‰²ã‚’å¤‰æ›´.
 autocmd ColorScheme * highlight Comment ctermfg=22 guifg=#00b500 guibg=#300060
-" ƒJƒ‰[ƒXƒL[ƒ€
+" ã‚«ãƒ©ãƒ¼ã‚¹ã‚­ãƒ¼ãƒ 
 colorscheme molokai
 
-" WindowsƒL[ƒoƒCƒ“ƒh
+" Windowsã‚­ãƒ¼ãƒã‚¤ãƒ³ãƒ‰
 source $VIMRUNTIME/mswin.vim
 
-" ƒhƒ‰ƒbƒO•ƒhƒƒbƒv‚ğV‚µ‚¢ƒ^ƒu‚ÉŠJ‚­
-autocmd VimEnter * tab all
-autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
+" ãƒ‰ãƒ©ãƒƒã‚°ï¼†ãƒ‰ãƒ­ãƒƒãƒ—ã‚’æ–°ã—ã„ã‚¿ãƒ–ã«é–‹ã
+"autocmd VimEnter * tab all
+"autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
 
-" ƒEƒCƒ“ƒhƒE‚ÌˆÊ’u‚ÆƒTƒCƒY‚ğ‹L‰¯‚·‚é
+" ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ä½ç½®ã¨ã‚µã‚¤ã‚ºã‚’è¨˜æ†¶ã™ã‚‹
 let g:save_window_file = expand('$HOME/.vimwinpos')
 augroup SaveWindow
   autocmd!
@@ -78,35 +84,42 @@ if filereadable(g:save_window_file)
   execute 'source' g:save_window_file
 endif
 
-"ƒCƒ“ƒNƒŠƒƒ“ƒ^ƒ‹ŒŸõ
+" ãƒ‰ãƒ©ãƒƒã‚°ï¼†ãƒ‰ãƒ­ãƒƒãƒ—ã‚’æ–°ã—ã„ã‚¿ãƒ–ã«é–‹ã
+"autocmd VimEnter * tab all
+"autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"
+
+" QuickFixã‚’é–‹ãéš›ã«æ–°ã—ã„ã‚¿ãƒ–ã§é–‹ã.
+autocmd QuickfixCmdPost make,grep,grepadd,vimgrep tab cwindow
+
+"ã‚¤ãƒ³ã‚¯ãƒªãƒ¡ãƒ³ã‚¿ãƒ«æ¤œç´¢
 set incsearch
 set wildmenu wildmode=list:full
 
-" ƒVƒ“ƒ^ƒbƒNƒXƒnƒCƒ‰ƒCƒg
+" ã‚·ãƒ³ã‚¿ãƒƒã‚¯ã‚¹ãƒã‚¤ãƒ©ã‚¤ãƒˆ
 syntax on
 set cursorline
 
-"swap ƒtƒ@ƒCƒ‹‚ğ¶¬‚µ‚È‚¢
+"swap ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ç”Ÿæˆã—ãªã„
 set noswapfile
 set noundofile
 set nobackup
 
-" ƒ^ƒu•
+" ã‚¿ãƒ–å¹…
 set tabstop=4
 set shiftwidth=4
 
-" ‚±‚ê‚Å•âŠ®‚ª©“®‚Åo‚é‚ç‚µ‚¢
+" ã“ã‚Œã§è£œå®ŒãŒè‡ªå‹•ã§å‡ºã‚‹ã‚‰ã—ã„
 set completeopt=menuone
 for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
   exec "imap <expr> " . k . " pumvisible() ? '" . k . "' : '" . k . "\<C-X>\<C-P>\<C-N>'"
 endfor
 
-" ƒr[ƒv‰¹íœ
+" ãƒ“ãƒ¼ãƒ—éŸ³å‰Šé™¤
 set visualbell t_vb=
 
 " https://sites.google.com/site/fudist/Home/vim-nihongo-ban/-vimrc-sample
 """"""""""""""""""""""""""""""
-" ‘}“üƒ‚[ƒhAƒXƒe[ƒ^ƒXƒ‰ƒCƒ“‚ÌF‚ğ•ÏX
+" æŒ¿å…¥ãƒ¢ãƒ¼ãƒ‰æ™‚ã€ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒ©ã‚¤ãƒ³ã®è‰²ã‚’å¤‰æ›´
 """"""""""""""""""""""""""""""
 let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
 
@@ -139,24 +152,32 @@ function! s:GetHighlight(hi)
 endfunction
 """"""""""""""""""""""""""""""
 
+" Git for Windows
+set grepprg=grep\ -n
+let $PATH .= ';C:\Program Files\Git\usr\bin'
+
 "format
  set fencs=utf-8,sjis,cp932,euc-jp,iso-2022-jp,ucs-bom,ucs-2le,ucs-2
  set fileformats=unix,dos,mac
 
-" ƒVƒ“ƒOƒ‹ƒgƒ“‰»
+"ä¸å¯è¦–æ–‡å­—è¡¨ç¤º.
+set list
+set listchars=tab:>.,trail:_,extends:>,precedes:<,nbsp:%
+
+" ã‚·ãƒ³ã‚°ãƒ«ãƒˆãƒ³åŒ–
 call singleton#enable()
 
-" vim‚ğ—§‚¿ã‚°‚½‚Æ‚«‚ÉA©“®“I‚Évim-indent-guides‚ğƒIƒ“‚É‚·‚é
+" vimã‚’ç«‹ã¡ä¸Šã’ãŸã¨ãã«ã€è‡ªå‹•çš„ã«vim-indent-guidesã‚’ã‚ªãƒ³ã«ã™ã‚‹
 call indent_guides#enable()
 
 " NERDTree
-" ‰B‚µƒtƒ@ƒCƒ‹‚ğ•\¦‚·‚é
+" éš ã—ãƒ•ã‚¡ã‚¤ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹
 let NERDTreeShowHidden = 1
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
+" ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ãƒ„ãƒªãƒ¼ã‚’è¡¨ç¤ºã•ã›ã‚‹
+if argc() == 0
+  let g:nerdtree_tabs_open_on_console_startup = 1
+end
 
-nnoremap <silent><C-e> :NERDTreeFocusToggle<CR>
-
-" ƒfƒtƒHƒ‹ƒg‚ÅƒcƒŠ[‚ğ•\¦‚³‚¹‚é
-let g:nerdtree_tabs_open_on_console_startup=1
-
-" ‘¼‚Ìƒoƒbƒtƒ@‚ğ‚·‚×‚Ä•Â‚¶‚½‚ÉNERDTree‚ªŠJ‚¢‚Ä‚¢‚½‚çNERDTree‚àˆê‚É•Â‚¶‚éB
+" ä»–ã®ãƒãƒƒãƒ•ã‚¡ã‚’ã™ã¹ã¦é–‰ã˜ãŸæ™‚ã«NERDTreeãŒé–‹ã„ã¦ã„ãŸã‚‰NERDTreeã‚‚ä¸€ç·’ã«é–‰ã˜ã‚‹ã€‚
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

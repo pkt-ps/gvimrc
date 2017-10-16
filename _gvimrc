@@ -1,31 +1,4 @@
-﻿" ------------MyConfig----------------"
-" --plugins
-" vim-singleton
-" vim-indent-guides
-" nerdtree
-" vim-nerdtree-tabs
-" --color
-" molokai.vim
-" jellybeans.vim
-"
-" cd %userprofile%
-" mkdir .\vimfiles
-" mkdir .\vimfiles\pack
-" mkdir .\vimfiles\pack\colors
-" mkdir .\vimfiles\pack\my
-" mkdir .\vimfiles\pack\my\opt
-" mkdir .\vimfiles\pack\my\start
-" cd %userprofile%\vimfiles
-" git clone https://github.com/tomasr/molokai.git
-" cd %userprofile%\vimfiles\pack\my\start
-" git clone https://github.com/scrooloose/nerdtree.git
-" git clone https://github.com/jistr/vim-nerdtree-tabs.git
-" git clone https://github.com/nathanaelkane/vim-indent-guides.git
-" git clone https://github.com/thinca/vim-singleton.git
-" git clone https://github.com/itchyny/vim-highlighturl.git
-" ------------------------------------
-
-" フォントサイズ
+﻿" フォントサイズ
 if has('win32')
   " Windows用
   set guifont=MS_Gothic:h9:cSHIFTJIS
@@ -43,27 +16,14 @@ elseif has('xfontset')
   set guifontset=a14,r14,k14
 endi
 
-set encoding=utf-8
-set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
-set fileformats=unix,dos,mac
-
-"タブ設定"
-set showtabline=2
-
-"行番号表示"
-set number
+" ドラッグ＆ドロップを新しいタブに開く
+autocmd VimEnter * tab all
+autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
 
 "　コメントの色を変更.
 autocmd ColorScheme * highlight Comment ctermfg=22 guifg=#00b500 guibg=#300060
 " カラースキーム
 colorscheme molokai
-
-" Windowsキーバインド
-source $VIMRUNTIME/mswin.vim
-
-" ドラッグ＆ドロップを新しいタブに開く
-"autocmd VimEnter * tab all
-"autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
 
 " ウインドウの位置とサイズを記憶する
 let g:save_window_file = expand('$HOME/.vimwinpos')
@@ -84,38 +44,8 @@ if filereadable(g:save_window_file)
   execute 'source' g:save_window_file
 endif
 
-" ドラッグ＆ドロップを新しいタブに開く
-"autocmd VimEnter * tab all
-"autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"
-
 " QuickFixを開く際に新しいタブで開く.
 autocmd QuickfixCmdPost make,grep,grepadd,vimgrep tab cwindow
-
-"インクリメンタル検索
-set incsearch
-set wildmenu wildmode=list:full
-
-" シンタックスハイライト
-syntax on
-set cursorline
-
-"swap ファイルを生成しない
-set noswapfile
-set noundofile
-set nobackup
-
-" タブ幅
-set tabstop=4
-set shiftwidth=4
-
-" これで補完が自動で出るらしい
-set completeopt=menuone
-for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
-  exec "imap <expr> " . k . " pumvisible() ? '" . k . "' : '" . k . "\<C-X>\<C-P>\<C-N>'"
-endfor
-
-" ビープ音削除
-set visualbell t_vb=
 
 " https://sites.google.com/site/fudist/Home/vim-nihongo-ban/-vimrc-sample
 """"""""""""""""""""""""""""""
@@ -152,6 +82,18 @@ function! s:GetHighlight(hi)
 endfunction
 """"""""""""""""""""""""""""""
 
+"-----------------------------------------------
+" パラメータ.
+"----------------------------------------------
+set encoding=utf-8
+set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
+set fileformats=unix,dos,mac
+
+" これをしないとencoding=utf-8にした場合にメニュー等々が文字化けする.
+source $VIMRUNTIME/delmenu.vim
+set langmenu=ja_jp.utf-8
+source $VIMRUNTIME/menu.vim
+
 " Git for Windows
 set grepprg=grep\ -n
 let $PATH .= ';C:\Program Files\Git\usr\bin'
@@ -164,20 +106,81 @@ let $PATH .= ';C:\Program Files\Git\usr\bin'
 set list
 set listchars=tab:>.,trail:_,extends:>,precedes:<,nbsp:%
 
+"タブ設定"
+set showtabline=2
+
+"行番号表示"
+set number
+
+" Windowsキーバインド
+"source $VIMRUNTIME/mswin.vim
+" Windowsキーバインドをやめて、コピー先レジスタを無名レジスタにする.
+set clipboard=unnamed,autoselect
+
+"インクリメンタル検索
+set incsearch
+set wildmenu wildmode=list:full
+
+" シンタックスハイライト
+syntax on
+
+" カーソルライン
+"set cursorline
+set nocursorline " 一部のファイルのシンタックスハイライトが聞くとカーソルが重いのでこっちを消す.
+
+"swap ファイルを生成しない
+set noswapfile
+set noundofile
+set nobackup
+
+" タブ幅
+set tabstop=4
+set shiftwidth=4
+
+" これで補完が自動で出るらしい
+set completeopt=menuone
+for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
+  exec "imap <expr> " . k . " pumvisible() ? '" . k . "' : '" . k . "\<C-X>\<C-P>\<C-N>'"
+endfor
+
+" ビープ音削除
+set visualbell t_vb=
+
+" 折り返しなし
+set nowrap
+
+"-----------------------------------------------
+" キーマップ.
+"----------------------------------------------
+" X削除でヤンクしない.
+nnoremap x "_x
+
+"-----------------------------------------------
+" カスタムコマンド.
+"----------------------------------------------
+command Cpp :set filetype=cpp
+command Ruby :set filetype=ruby
+command Java :set filetype=java
+command Python :set filetype=python
+command Oprc :tabe $USERPROFILE/_gvimrc
+
+"-----------------------------------------------
+" プラグイン.
+"----------------------------------------------
 " シングルトン化
-call singleton#enable()
+"call singleton#enable()
 
 " vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
-call indent_guides#enable()
+"call indent_guides#enable()
 
 " NERDTree
 " 隠しファイルを表示する
-let NERDTreeShowHidden = 1
-nnoremap <silent><C-e> :NERDTreeToggle<CR>
+"let NERDTreeShowHidden = 1
+"nnoremap <silent><C-e> :NERDTreeToggle<CR>
 " デフォルトでツリーを表示させる
-if argc() == 0
-  let g:nerdtree_tabs_open_on_console_startup = 1
-end
+"if argc() == 0
+"	let g:nerdtree_tabs_open_on_console_startup = 1
+"end
 
 " 他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる。
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif

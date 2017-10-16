@@ -12,7 +12,7 @@ cd /d %userprofile%\vimfiles\pack\my\start
 REM git clone https://github.com/scrooloose/nerdtree.git
 REM git clone https://github.com/jistr/vim-nerdtree-tabs.git
 REM git clone https://github.com/nathanaelkane/vim-indent-guides.git
-REM git clone https://github.com/thinca/vim-singleton.git
+git clone https://github.com/thinca/vim-singleton.git
 git clone https://github.com/itchyny/vim-highlighturl.git
 
 pause

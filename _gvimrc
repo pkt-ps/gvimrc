@@ -168,7 +168,7 @@ command Oprc :tabe $USERPROFILE/_gvimrc
 " プラグイン.
 "----------------------------------------------
 " シングルトン化
-"call singleton#enable()
+call singleton#enable()
 
 " vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
 "call indent_guides#enable()

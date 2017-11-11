@@ -1,3 +1,4 @@
+copy .\_gvimrc %userprofile%\_gvimrc /Y
 cd /d %userprofile%
 rmdir /S /Q .\vimfiles
 mkdir .\vimfiles

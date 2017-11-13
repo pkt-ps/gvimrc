@@ -114,6 +114,7 @@ set number
 
 " Windowsキーバインド
 "source $VIMRUNTIME/mswin.vim
+
 " Windowsキーバインドをやめて、コピー先レジスタを無名レジスタにする.
 set clipboard=unnamed,autoselect
 
@@ -154,6 +155,10 @@ set nowrap
 "----------------------------------------------
 " X削除でヤンクしない.
 nnoremap x "_x
+nnoremap n nzz
+nnoremap N Nzz
+nnoremap * *zz
+nnoremap # #zz
 
 " The prefix key.
 nnoremap    [Tag]   <Nop>
@@ -176,11 +181,12 @@ map <silent> [Tag]p :tabprevious<CR>
 "-----------------------------------------------
 " カスタムコマンド.
 "----------------------------------------------
-command Cpp :set filetype=cpp
-command Ruby :set filetype=ruby
-command Java :set filetype=java
-command Python :set filetype=python
-command Openrc :tabe $USERPROFILE/_gvimrc
+command! Cpp :set filetype=cpp
+command! Ruby :set filetype=ruby
+command! Java :set filetype=java
+command! Python :set filetype=python
+command! Openrc :tabe ~/_gvimrc
+command! Refleshrc :source ~/_gvimrc
 
 "-----------------------------------------------
 " プラグイン.
@@ -202,3 +208,10 @@ call singleton#enable()
 
 " 他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる。
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+"
+
+"--------------------------------------------------
+" Unite
+"--------------------------------------------------
+let g:unite_source_history_yank_enable =1  "history/yankの有効化
+nnoremap <silent> ,gy :<C-u>Unite history/yank<CR>

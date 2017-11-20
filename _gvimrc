@@ -16,9 +16,10 @@ elseif has('xfontset')
   set guifontset=a14,r14,k14
 endi
 
+" !!--これいれるとNERDTreeToggleがバグる--!!
 " ドラッグ＆ドロップを新しいタブに開く
-autocmd VimEnter * tab all
-autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
+"autocmd VimEnter * tab all
+"autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
 
 "　コメントの色を変更.
 autocmd ColorScheme * highlight Comment ctermfg=22 guifg=#00b500 guibg=#300060
@@ -45,7 +46,7 @@ if filereadable(g:save_window_file)
 endif
 
 " QuickFixを開く際に新しいタブで開く.
-autocmd QuickfixCmdPost make,grep,grepadd,vimgrep tab cwindow
+" autocmd QuickfixCmdPost make,grep,grepadd,vimgrep tab cwindow
 
 " https://sites.google.com/site/fudist/Home/vim-nihongo-ban/-vimrc-sample
 """"""""""""""""""""""""""""""
@@ -93,62 +94,51 @@ set fileformats=unix,dos,mac
 source $VIMRUNTIME/delmenu.vim
 set langmenu=ja_jp.utf-8
 source $VIMRUNTIME/menu.vim
-
 " Git for Windows
 set grepprg=grep\ -n
 let $PATH .= ';C:\Program Files\Git\usr\bin'
-
 "format
  set fencs=utf-8,sjis,cp932,euc-jp,iso-2022-jp,ucs-bom,ucs-2le,ucs-2
  set fileformats=unix,dos,mac
-
 "不可視文字表示.
 set list
 set listchars=tab:>.,trail:_,extends:>,precedes:<,nbsp:%
-
 "タブ設定"
 set showtabline=2
-
 "行番号表示"
 set number
-
 " Windowsキーバインド
 "source $VIMRUNTIME/mswin.vim
-
 " Windowsキーバインドをやめて、コピー先レジスタを無名レジスタにする.
 set clipboard=unnamed,autoselect
-
 "インクリメンタル検索
 set incsearch
 set wildmenu wildmode=list:full
-
 " シンタックスハイライト
 syntax on
-
 " カーソルライン
 "set cursorline
 set nocursorline " 一部のファイルのシンタックスハイライトが聞くとカーソルが重いのでこっちを消す.
-
 "swap ファイルを生成しない
 set noswapfile
 set noundofile
 set nobackup
-
 " タブ幅
 set tabstop=4
 set shiftwidth=4
-
 " これで補完が自動で出るらしい
 set completeopt=menuone
 for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
   exec "imap <expr> " . k . " pumvisible() ? '" . k . "' : '" . k . "\<C-X>\<C-P>\<C-N>'"
 endfor
-
 " ビープ音削除
 set visualbell t_vb=
-
 " 折り返しなし
 set nowrap
+" カレントディレクトリ同期
+set autochdir
+" 検索結果ハイライト
+set hlsearch
 
 "-----------------------------------------------
 " キーマップ.
@@ -159,24 +149,17 @@ nnoremap n nzz
 nnoremap N Nzz
 nnoremap * *zz
 nnoremap # #zz
+nnoremap s <Nop>
+nnoremap sx :tabclose<CR>
+nnoremap sn gt<CR>
+nnoremap sN gT<CR>
+nnoremap so :OpenNAlter<CR>
 
-" The prefix key.
-nnoremap    [Tag]   <Nop>
-nmap    t [Tag]
-" Tab jump
-for n in range(1, 9)
-  execute 'nnoremap <silent> [Tag]'.n  ':<C-u>tabnext'.n.'<CR>'
-endfor
-" t1 で1番左のタブ、t2 で1番左から2番目のタブにジャンプ
-
-map <silent> [Tag]c :tablast <bar> tabnew<CR>
-" tc 新しいタブを一番右に作る
-map <silent> [Tag]x :tabclose<CR>
-" tx タブを閉じる
-map <silent> [Tag]n :tabnext<CR>
-" tn 次のタブ
-map <silent> [Tag]p :tabprevious<CR>
-" tp 前のタブ
+" Unite
+let g:unite_source_history_yank_enable =1  "history/yankの有効化
+noremap sy :Unite history/yank<CR>
+noremap sf :Unite -buffer-name=file file<CR>
+noremap sr :Unite file_mru<CR> 
 
 "-----------------------------------------------
 " カスタムコマンド.
@@ -195,23 +178,33 @@ command! Refleshrc :source ~/_gvimrc
 call singleton#enable()
 
 " vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
-"call indent_guides#enable()
+call indent_guides#enable()
 
 " NERDTree
 " 隠しファイルを表示する
-"let NERDTreeShowHidden = 1
-"nnoremap <silent><C-e> :NERDTreeToggle<CR>
+let NERDTreeShowHidden = 1
+function NERDTreeToggleCustom()
+	CdCurrent
+	NERDTreeToggle
+endfunction
+nnoremap <silent><C-e> :call NERDTreeToggleCustom()<CR>
 " デフォルトでツリーを表示させる
 "if argc() == 0
 "	let g:nerdtree_tabs_open_on_console_startup = 1
 "end
+"参考
+"set number
+"function Setnumber()
+"  if &number
+"    setlocal nonumber
+"  else
+"    setlocal number
+"  endif
+"endfunction
+"nnoremap <silent> <C-m> :call Setnumber()<CR>
 
 " 他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる。
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd BufEnter * lcd %:p:h
 "
 
-"--------------------------------------------------
-" Unite
-"--------------------------------------------------
-let g:unite_source_history_yank_enable =1  "history/yankの有効化
-nnoremap <silent> ,gy :<C-u>Unite history/yank<CR>

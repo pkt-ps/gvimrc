@@ -152,8 +152,9 @@ nnoremap # #zz
 nnoremap s <Nop>
 nnoremap sx :tabclose<CR>
 nnoremap sn gt<CR>
-nnoremap sN gT<CR>
+nnoremap sp gT<CR>
 nnoremap so :OpenNAlter<CR>
+nnoremap <ESC><ESC> :noh<CR>
 
 " Unite
 let g:unite_source_history_yank_enable =1  "history/yankの有効化
@@ -183,7 +184,7 @@ call indent_guides#enable()
 " NERDTree
 " 隠しファイルを表示する
 let NERDTreeShowHidden = 1
-function NERDTreeToggleCustom()
+function! NERDTreeToggleCustom()
 	CdCurrent
 	NERDTreeToggle
 endfunction

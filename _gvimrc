@@ -172,6 +172,8 @@ command! Java :set filetype=java
 command! Python :set filetype=python
 command! Openrc :tabe ~/_gvimrc
 command! Refleshrc :source ~/_gvimrc
+command! Openbin :%!xxd
+command! Revertbin :%!xxd -r
 
 "-----------------------------------------------
 " プラグイン.

@@ -68,4 +68,5 @@ nnoremap sn gt<CR>
 nnoremap sN gT<CR>
 nnoremap sx :q<CR>
 
-
+nnoremap /  /\v
+nnoremap <ESC><ESC> :noh<CR>

@@ -1,26 +1,10 @@
-﻿" フォントサイズ
-if has('win32')
-  " Windows用
-  set guifont=MS_Gothic:h9:cSHIFTJIS
-  "set guifont=Consolas:h10,Lucida_Console:h10:w5 guifontwide=MS_Gothic:h10
-  " 行間隔の設定
-  set linespace=1
-  " 一部のUCS文字の幅を自動計測して決める
-  if has('kaoriya')
-    set ambiwidth=auto
-  endif
-elseif has('mac')
-  set guifont=Osaka－等幅:h14
-elseif has('xfontset')
-  " UNIX用 (xfontsetを使用)
-  set guifontset=a14,r14,k14
-endi
+﻿"Windows対策
+set runtimepath+=~/.vim
 
 "　コメントの色を変更.
 autocmd ColorScheme * highlight Comment ctermfg=22 guifg=#00b500 guibg=#300060
 " カラースキーム
 colorscheme molokai
-
 " https://sites.google.com/site/fudist/Home/vim-nihongo-ban/-vimrc-sample
 """"""""""""""""""""""""""""""
 " 挿入モード時、ステータスラインの色を変更
@@ -56,38 +40,6 @@ function! s:GetHighlight(hi)
 endfunction
 """"""""""""""""""""""""""""""
 
-" 個別のタブの表示設定をします
-function! GuiTabLabel()
-  " タブで表示する文字列の初期化をします
-  let l:label = ''
-
-  " タブに含まれるバッファ(ウィンドウ)についての情報をとっておきます。
-  let l:bufnrlist = tabpagebuflist(v:lnum)
-
-  " 表示文字列にバッファ名を追加します
-  " パスを全部表示させると長いのでファイル名だけを使います 詳しくは help fnamemodify()
-  let l:bufname = fnamemodify(bufname(l:bufnrlist[tabpagewinnr(v:lnum) - 1]), ':t')
-  " バッファ名がなければ No title としておきます。ここではマルチバイト文字を使わないほうが無難です
-  let l:label .= l:bufname == '' ? 'No title' : l:bufname
-
-  " タブ内にウィンドウが複数あるときにはその数を追加します(デフォルトで一応あるので)
-  let l:wincount = tabpagewinnr(v:lnum, '$')
-  if l:wincount > 1
-    let l:label .= '[' . l:wincount . ']'
-  endif
-
-  " このタブページに変更のあるバッファがるときには '[+]' を追加します(デフォルトで一応あるので)
-  for bufnr in l:bufnrlist
-    if getbufvar(bufnr, "&modified")
-      let l:label .= '[+]'
-      break
-    endif
-  endfor
-
-  " 表示文字列を返します
-  return l:label
-endfunction
-
 "-----------------------------------------------
 " パラメータ.
 "----------------------------------------------
@@ -110,9 +62,6 @@ set list
 set listchars=tab:>.,trail:_,extends:>,precedes:<,nbsp:%
 "タブ設定"
 set showtabline=2
-" タブにフルパスでなく、ファイル名のみを表示する                                
-set tabline=%N:\ %{GuiTabLabel()}
-set guitablabel=%N:\ %{GuiTabLabel()}
 "行番号表示"
 set number
 " Windowsキーバインド
@@ -145,6 +94,7 @@ set visualbell t_vb=
 set nowrap
 " カレントディレクトリ同期
 set autochdir
+set ignorecase
 
 "-----------------------------------------------
 " キーマップ.
@@ -164,12 +114,10 @@ nnoremap se :!start .<CR>
 nnoremap <ESC><ESC> :noh<CR>
 nnoremap <C-o><C-o> <ESC>a<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><ESC>
 nnoremap /  /\v
-
-" Unite
-let g:unite_source_history_yank_enable =1  "history/yankの有効化
-noremap sy :Unite history/yank<CR>
-noremap sf :Unite -buffer-name=file file<CR>
-noremap sr :Unite file_mru<CR> 
+inoremap <C-h> <Left>
+inoremap <C-j> <Down>
+inoremap <C-k> <Up>
+inoremap <C-l> <Right>
 
 "-----------------------------------------------
 " カスタムコマンド.
@@ -178,17 +126,13 @@ command! Cpp :set filetype=cpp
 command! Ruby :set filetype=ruby
 command! Java :set filetype=java
 command! Python :set filetype=python
-command! Openrc :tabe ~/_gvimrc
+command! Openrc :tabe ~/.vimrc
 command! Refleshrc :source ~/_gvimrc
-command! Openbin :%!xxd
-command! Revertbin :%!xxd -r
+command! -nargs=0 CdCurrent cd %:p:h
 
 "-----------------------------------------------
 " プラグイン.
 "----------------------------------------------
-" vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
-call indent_guides#enable()
-
 " NERDTree
 " 隠しファイルを表示する
 let NERDTreeShowHidden = 1
@@ -197,22 +141,6 @@ function! NERDTreeToggleCustom()
 	NERDTreeToggle
 endfunction
 nnoremap <silent><C-e> :call NERDTreeToggleCustom()<CR>
-" デフォルトでツリーを表示させる
-"if argc() == 0
-"	let g:nerdtree_tabs_open_on_console_startup = 1
-"end
-"参考
-"set number
-"function Setnumber()
-"  if &number
-"    setlocal nonumber
-"  else
-"    setlocal number
-"  endif
-"endfunction
-"nnoremap <silent> <C-m> :call Setnumber()<CR>
 
-" 他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる。
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 autocmd BufEnter * lcd %:p:h
 

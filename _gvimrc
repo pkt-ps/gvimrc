@@ -1,4 +1,7 @@
-﻿" フォントサイズ
+﻿" カラースキーム
+colorscheme molokai
+
+" フォントサイズ
 if has('win32')
   " Windows用
   set guifont=MS_Gothic:h9:cSHIFTJIS
@@ -16,18 +19,8 @@ elseif has('xfontset')
   set guifontset=a14,r14,k14
 endi
 
-" !!--これいれるとNERDTreeToggleがバグる--!!
-" ドラッグ＆ドロップを新しいタブに開く
-"autocmd VimEnter * tab all
-"autocmd BufAdd * exe 'tablast | tabe "' . expand( "<afile") .'"'
-
-"　コメントの色を変更.
-autocmd ColorScheme * highlight Comment ctermfg=22 guifg=#00b500 guibg=#300060
-" カラースキーム
-colorscheme molokai
-
 " ウインドウの位置とサイズを記憶する
-let g:save_window_file = expand('$HOME/.vimwinpos')
+let g:save_window_file = expand('$HOME/.vim/.vimwinpos')
 augroup SaveWindow
   autocmd!
   autocmd VimLeavePre * call s:save_window()
@@ -44,9 +37,6 @@ augroup END
 if filereadable(g:save_window_file)
   execute 'source' g:save_window_file
 endif
-
-" QuickFixを開く際に新しいタブで開く.
-" autocmd QuickfixCmdPost make,grep,grepadd,vimgrep tab cwindow
 
 " https://sites.google.com/site/fudist/Home/vim-nihongo-ban/-vimrc-sample
 """"""""""""""""""""""""""""""
@@ -116,133 +106,9 @@ function! GuiTabLabel()
 endfunction
 
 "-----------------------------------------------
-" パラメータ.
-"----------------------------------------------
-set encoding=utf-8
-set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
-set fileformats=unix,dos,mac
-
-" これをしないとencoding=utf-8にした場合にメニュー等々が文字化けする.
-source $VIMRUNTIME/delmenu.vim
-set langmenu=ja_jp.utf-8
-source $VIMRUNTIME/menu.vim
-" Git for Windows
-set grepprg=grep\ -n
-let $PATH .= ';C:\Program Files\Git\usr\bin'
-"format
- set fencs=utf-8,sjis,cp932,euc-jp,iso-2022-jp,ucs-bom,ucs-2le,ucs-2
- set fileformats=unix,dos,mac
-"不可視文字表示.
-set list
-set listchars=tab:>.,trail:_,extends:>,precedes:<,nbsp:%
-"タブ設定"
-set showtabline=2
-" タブにフルパスでなく、ファイル名のみを表示する                                
-set tabline=%N:\ %{GuiTabLabel()}
-set guitablabel=%N:\ %{GuiTabLabel()}
-"行番号表示"
-set number
-" Windowsキーバインド
-"source $VIMRUNTIME/mswin.vim
-" Windowsキーバインドをやめて、コピー先レジスタを無名レジスタにする.
-set clipboard=unnamed,autoselect
-"インクリメンタル検索
-set incsearch
-set wildmenu wildmode=list:full
-" シンタックスハイライト
-syntax on
-" カーソルライン
-"set cursorline
-set nocursorline " 一部のファイルのシンタックスハイライトが聞くとカーソルが重いのでこっちを消す.
-"swap ファイルを生成しない
-set noswapfile
-set noundofile
-set nobackup
-" タブ幅
-set tabstop=4
-set shiftwidth=4
-" これで補完が自動で出るらしい
-"set completeopt=menuone
-"for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
-"  exec "imap <expr> " . k . " pumvisible() ? '" . k . "' : '" . k . "\<C-X>\<C-P>\<C-N>'"
-"endfor
-" ビープ音削除
-set visualbell t_vb=
-" 折り返しなし
-set nowrap
-" カレントディレクトリ同期
-set autochdir
-
-"-----------------------------------------------
-" キーマップ.
-"----------------------------------------------
-" X削除でヤンクしない.
-nnoremap x "_x
-nnoremap n nzz
-nnoremap N Nzz
-nnoremap * *zz
-nnoremap # #zz
-nnoremap s <Nop>
-nnoremap sx :tabclose<CR>
-nnoremap sn gt<CR>
-nnoremap sp gT<CR>
-nnoremap so :OpenNAlter<CR>
-nnoremap se :!start .<CR>
-nnoremap <ESC><ESC> :noh<CR>
-nnoremap <C-o><C-o> <ESC>a<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><ESC>
-nnoremap /  /\v
-
-" Unite
-let g:unite_source_history_yank_enable =1  "history/yankの有効化
-noremap sy :Unite history/yank<CR>
-noremap sf :Unite -buffer-name=file file<CR>
-noremap sr :Unite file_mru<CR> 
-
-"-----------------------------------------------
 " カスタムコマンド.
 "----------------------------------------------
-command! Cpp :set filetype=cpp
-command! Ruby :set filetype=ruby
-command! Java :set filetype=java
-command! Python :set filetype=python
-command! Openrc :tabe ~/_gvimrc
-command! Refleshrc :source ~/_gvimrc
-command! Openbin :%!xxd
-command! Revertbin :%!xxd -r
+command! Opengrc :tabe ~/_gvimrc
+command! Refleshgrc :source ~/_gvimrc
 
-"-----------------------------------------------
-" プラグイン.
-"----------------------------------------------
-" シングルトン化
-call singleton#enable()
-
-" vimを立ち上げたときに、自動的にvim-indent-guidesをオンにする
-call indent_guides#enable()
-
-" NERDTree
-" 隠しファイルを表示する
-let NERDTreeShowHidden = 1
-function! NERDTreeToggleCustom()
-	CdCurrent
-	NERDTreeToggle
-endfunction
-nnoremap <silent><C-e> :call NERDTreeToggleCustom()<CR>
-" デフォルトでツリーを表示させる
-"if argc() == 0
-"	let g:nerdtree_tabs_open_on_console_startup = 1
-"end
-"参考
-"set number
-"function Setnumber()
-"  if &number
-"    setlocal nonumber
-"  else
-"    setlocal number
-"  endif
-"endfunction
-"nnoremap <silent> <C-m> :call Setnumber()<CR>
-
-" 他のバッファをすべて閉じた時にNERDTreeが開いていたらNERDTreeも一緒に閉じる。
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-autocmd BufEnter * lcd %:p:h
 

@@ -1,5 +1,8 @@
 cd /d %~dp0
 
+mkdir .\vimfiles
+cd .\vimfiles
+
 mkdir .\pack\my\start
 mkdir .\pack\my\opt
 mkdir .\colors

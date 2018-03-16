@@ -1,6 +1,9 @@
 SCRIPT_DIR=`dirname $0`
 cd ${SCRIPT_DIR}
 
+mkdir ./vim
+cd ./vim
+
 mkdir -p ./pack/my/start
 mkdir -p ./pack/my/opt
 mkdir -p ./colors

@@ -109,11 +109,14 @@ nnoremap s <Nop>
 nnoremap sx :tabclose<CR>
 nnoremap sn gt<CR>
 nnoremap sp gT<CR>
+nnoremap <C-n> gt<CR>
+nnoremap <C-p> gT<CR>
 nnoremap sr :bro ol<CR>
 nnoremap se :!start .<CR>
 nnoremap <ESC><ESC> :noh<CR>
 nnoremap <C-o><C-o> <ESC>a<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><ESC>
 nnoremap /  /\v
+nnoremap <C-t> :tabe<CR>
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>
 inoremap <C-k> <Up>

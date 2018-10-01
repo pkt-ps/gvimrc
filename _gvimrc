@@ -1,6 +1,11 @@
 ﻿" カラースキーム
 colorscheme molokai
 
+"-----------------------------------------------
+" パラメータ.
+"----------------------------------------------
+set visualbell t_vb=
+
 " フォントサイズ
 if has('win32')
   " Windows用
@@ -20,7 +25,7 @@ elseif has('xfontset')
 endi
 
 " ウインドウの位置とサイズを記憶する
-let g:save_window_file = expand('~/vimfiles/.vimwinpos')
+let g:save_window_file = expand('$HOME/.vim/.vimwinpos')
 augroup SaveWindow
   autocmd!
   autocmd VimLeavePre * call s:save_window()
@@ -110,3 +115,5 @@ endfunction
 "----------------------------------------------
 command! Opengrc :tabe ~/_gvimrc
 command! Refleshgrc :source ~/_gvimrc
+
+

@@ -116,6 +116,7 @@ nnoremap se :!start .<CR>
 nnoremap <ESC><ESC> :noh<CR>
 nnoremap <C-o><C-o> <ESC>a<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><ESC>
 nnoremap /  /\v
+nnoremap st :tabe<CR>
 nnoremap <C-t> :tabe<CR>
 inoremap <C-h> <Left>
 inoremap <C-j> <Down>

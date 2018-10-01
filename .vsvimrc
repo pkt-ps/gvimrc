@@ -52,6 +52,8 @@ set autochdir
 " 検索結果ハイライト
 set hlsearch
 
+set ignorecase
+
 "-----------------------------------------------
 " キーマップ.
 "----------------------------------------------
@@ -65,7 +67,9 @@ nnoremap # #zz
 nnoremap s <Nop>
 nnoremap sx :tabclose<CR>
 nnoremap sn gt<CR>
-nnoremap sN gT<CR>
+nnoremap sp gT<CR>
+nnoremap <C-n> gt<CR>
+nnoremap <C-p> gT<CR>
 nnoremap sx :q<CR>
 
 nnoremap /  /\v

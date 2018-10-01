@@ -1,5 +1,14 @@
-cd /d %~dp0
+setlocal enabledelayedexpansion
+set ROOT_DIR=%~dp0
+cd /d %USERPROFILE%
 
+REM vimrc
+copy !ROOT_DIR!.vimrc .vimrc
+copy !ROOT_DIR!.vsvimrc .vsvimrc
+copy !ROOT_DIR!_gvimrc _gvimrc
+
+REM plugin
+rd /s /q .\vimfiles
 mkdir .\vimfiles
 cd .\vimfiles
 

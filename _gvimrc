@@ -25,7 +25,7 @@ elseif has('xfontset')
 endi
 
 " ウインドウの位置とサイズを記憶する
-let g:save_window_file = expand('$HOME/.vim/.vimwinpos')
+let g:save_window_file = expand('$HOME/vimfiles/.vimwinpos')
 augroup SaveWindow
   autocmd!
   autocmd VimLeavePre * call s:save_window()

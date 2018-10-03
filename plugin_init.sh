@@ -1,18 +1,14 @@
 SCRIPT_DIR=`dirname $0`
 cd ${SCRIPT_DIR}
 
-mkdir ~/.vim
-cd ./.vim
+# vimrc copy
+cp .vimrc ~/.vimrc
+cp .vsvimrc ~/.vsvimrc
+cp _gvimrc ~/_gvimrc
 
-mkdir -p ./pack/my/start
-mkdir -p ./pack/my/opt
-mkdir -p ./colors
+# plugin(dein)
+mkdir -p ~/.vim
+cd ~/.vim
 
-# Color Scheme
-git clone https://github.com/tomasr/molokai.git
-mv .\molokai\colors\molokai.vim .\colors
-
-# Plugin
-cd ./pack/my/start
-git clone https://github.com/scrooloose/nerdtree.git
-
+curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+sh ./installer.sh ~/.vim/bundles

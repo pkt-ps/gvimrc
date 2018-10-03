@@ -1,44 +1,77 @@
 ﻿"Windows対策
 set runtimepath+=~/.vim
 
+"------------------------------------
+" Dein Setup
+"------------------------------------
+if &compatible
+  set nocompatible
+endif
+
+"dein.vimディレクトリをruntimepathに追加する
+set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
+
+"以下定型文
+if dein#load_state("~/.vim/bundles")
+	call dein#begin("~/.vim/bundles")
+		" プラグイン
+		call dein#add("~/.vim/bundles/repos/github.com/Shougo/dein.vim")
+		call dein#add('vim-airline/vim-airline')
+		call dein#add('scrooloose/nerdtree')
+		call dein#add('tomasr/molokai')
+	call dein#end()
+	call dein#save_state()
+endif
+
+filetype plugin indent on
+syntax enable
+
+if dein#check_install()
+  call dein#install()
+endif
+"------------------------------------
+"------------------------------------
+
 "　コメントの色を変更.
 autocmd ColorScheme * highlight Comment ctermfg=22 guifg=#00b500 guibg=#300060
 " カラースキーム
 colorscheme molokai
+
+" pluginで
 " https://sites.google.com/site/fudist/Home/vim-nihongo-ban/-vimrc-sample
 """"""""""""""""""""""""""""""
 " 挿入モード時、ステータスラインの色を変更
 """"""""""""""""""""""""""""""
-let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
-
-if has('syntax')
-  augroup InsertHook
-    autocmd!
-    autocmd InsertEnter * call s:StatusLine('Enter')
-    autocmd InsertLeave * call s:StatusLine('Leave')
-  augroup END
-endif
-
-let s:slhlcmd = ''
-function! s:StatusLine(mode)
-  if a:mode == 'Enter'
-    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-    silent exec g:hi_insert
-  else
-    highlight clear StatusLine
-    silent exec s:slhlcmd
-  endif
-endfunction
-
-function! s:GetHighlight(hi)
-  redir => hl
-  exec 'highlight '.a:hi
-  redir END
-  let hl = substitute(hl, '[\r\n]', '', 'g')
-  let hl = substitute(hl, 'xxx', '', '')
-  return hl
-endfunction
-""""""""""""""""""""""""""""""
+"let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
+"
+"if has('syntax')
+"  augroup InsertHook
+"    autocmd!
+"    autocmd InsertEnter * call s:StatusLine('Enter')
+"    autocmd InsertLeave * call s:StatusLine('Leave')
+"  augroup END
+"endif
+"
+"let s:slhlcmd = ''
+"function! s:StatusLine(mode)
+"  if a:mode == 'Enter'
+"    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
+"    silent exec g:hi_insert
+"  else
+"    highlight clear StatusLine
+"    silent exec s:slhlcmd
+"  endif
+"endfunction
+"
+"function! s:GetHighlight(hi)
+"  redir => hl
+"  exec 'highlight '.a:hi
+"  redir END
+"  let hl = substitute(hl, '[\r\n]', '', 'g')
+"  let hl = substitute(hl, 'xxx', '', '')
+"  return hl
+"endfunction
+"""""""""""""""""""""""""""""""
 
 "-----------------------------------------------
 " パラメータ.
@@ -130,7 +163,7 @@ command! Cpp :set filetype=cpp
 command! Ruby :set filetype=ruby
 command! Java :set filetype=java
 command! Python :set filetype=python
-command! Openrc :tabe ~/.vimrc
+"command! Openrc :tabe ~/.vimrc   つい書き換えてしまうのでこれは消す
 command! Refleshrc :source ~/_gvimrc
 command! -nargs=0 CdCurrent cd %:p:h
 
@@ -148,3 +181,5 @@ nnoremap <silent><C-e> :call NERDTreeToggleCustom()<CR>
 
 autocmd BufEnter * lcd %:p:h
 
+ let g:clang_c_options = '-std=gnu11'
+ let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'

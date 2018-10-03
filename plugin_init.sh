@@ -10,5 +10,7 @@ cp _gvimrc ~/_gvimrc
 mkdir -p ~/.vim
 cd ~/.vim
 
-curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
-sh ./installer.sh ~/.vim/bundles
+if [ ! -e ~/.vim/bundles ]; then
+	curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+	sh ./installer.sh ~/.vim/bundles
+fi

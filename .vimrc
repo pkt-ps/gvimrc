@@ -16,9 +16,15 @@ if dein#load_state("~/.vim/bundles")
 	call dein#begin("~/.vim/bundles")
 		" プラグイン
 		call dein#add("~/.vim/bundles/repos/github.com/Shougo/dein.vim")
+
 		call dein#add('vim-airline/vim-airline')
 		call dein#add('scrooloose/nerdtree')
 		call dein#add('tomasr/molokai')
+		"call dein#add('justmao945/vim-clang')
+		call dein#add('Shougo/vimproc.vim', {'build': 'make'})
+		call dein#add('Shougo/neocomplete.vim')
+		call dein#add('Shougo/neosnippet.vim')
+		call dein#add('Shougo/neosnippet-snippets')
 	call dein#end()
 	call dein#save_state()
 endif
@@ -116,17 +122,15 @@ set nobackup
 " タブ幅
 set tabstop=4
 set shiftwidth=4
-" これで補完が自動で出るらしい
-"set completeopt=menuone
-"for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
-"  exec "imap <expr> " . k . " pumvisible() ? '" . k . "' : '" . k . "\<C-X>\<C-P>\<C-N>'"
-"endfor
 " ビープ音削除
 set visualbell t_vb=
 " 折り返しなし
 set nowrap
 " カレントディレクトリ同期
 set autochdir
+autocmd BufEnter * lcd %:p:h
+command! -nargs=0 CdCurrent cd %:p:h
+" 大文字小文字無視
 set ignorecase
 
 "-----------------------------------------------
@@ -151,10 +155,6 @@ nnoremap <C-o><C-o> <ESC>a<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><ESC>
 nnoremap /  /\v
 nnoremap st :tabe<CR>
 nnoremap <C-t> :tabe<CR>
-inoremap <C-h> <Left>
-inoremap <C-j> <Down>
-inoremap <C-k> <Up>
-inoremap <C-l> <Right>
 
 "-----------------------------------------------
 " カスタムコマンド.
@@ -165,7 +165,6 @@ command! Java :set filetype=java
 command! Python :set filetype=python
 "command! Openrc :tabe ~/.vimrc   つい書き換えてしまうのでこれは消す
 command! Refleshrc :source ~/_gvimrc
-command! -nargs=0 CdCurrent cd %:p:h
 
 "-----------------------------------------------
 " プラグイン.
@@ -179,7 +178,30 @@ function! NERDTreeToggleCustom()
 endfunction
 nnoremap <silent><C-e> :call NERDTreeToggleCustom()<CR>
 
-autocmd BufEnter * lcd %:p:h
+" NeoComplete
+"起動時に有効
+let g:neocomplete#enable_at_startup = 1
+" ポップアップメニューで表示される候補の数
+let g:neocomplete#max_list = 50
+"キーワードの長さ、デフォルトで80
+let g:neocomplete#max_keyword_width = 80
+let g:neocomplete#enable_ignore_case = 1
+highlight Pmenu ctermbg=6
+highlight PmenuSel ctermbg=3
+highlight PMenuSbar ctermbg=0
+inoremap <expr><CR>  pumvisible() ? neocomplete#close_popup() : "<CR>"
 
- let g:clang_c_options = '-std=gnu11'
- let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
+" NeoSnippet
+imap <expr><CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<CR>"
+
+imap  <expr><TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+ 
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
+if has('conceal')
+  set conceallevel=2 concealcursor=niv
+endif

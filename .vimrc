@@ -20,11 +20,13 @@ if dein#load_state("~/.vim/bundles")
 		call dein#add('vim-airline/vim-airline')
 		call dein#add('scrooloose/nerdtree')
 		call dein#add('tomasr/molokai')
+		call dein#add('thinca/vim-singleton')
+		call dein#add('vim-scripts/a.vim')
 		"call dein#add('justmao945/vim-clang')
-		call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-		call dein#add('Shougo/neocomplete.vim')
-		call dein#add('Shougo/neosnippet.vim')
-		call dein#add('Shougo/neosnippet-snippets')
+		"call dein#add('Shougo/vimproc.vim', {'build': 'make'})
+		"call dein#add('Shougo/neocomplete.vim')
+		"call dein#add('Shougo/neosnippet.vim')
+		"call dein#add('Shougo/neosnippet-snippets')
 	call dein#end()
 	call dein#save_state()
 endif
@@ -127,16 +129,16 @@ set visualbell t_vb=
 " 折り返しなし
 set nowrap
 " カレントディレクトリ同期
-set autochdir
-autocmd BufEnter * lcd %:p:h
-command! -nargs=0 CdCurrent cd %:p:h
+"set autochdir
+"autocmd BufEnter * lcd %:p:h
+"command! -nargs=0 CdCurrent cd %:p:h
 " 大文字小文字無視
 set ignorecase
 
 "-----------------------------------------------
 " キーマップ.
 "----------------------------------------------
-" X削除でヤンクしない.
+" X削除でレジスタを侵食しない.
 nnoremap x "_x
 nnoremap n nzz
 nnoremap N Nzz
@@ -155,6 +157,7 @@ nnoremap <C-o><C-o> <ESC>a<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><ESC>
 nnoremap /  /\v
 nnoremap st :tabe<CR>
 nnoremap <C-t> :tabe<CR>
+nnoremap <C-k><C-o> :AT<CR>
 
 "-----------------------------------------------
 " カスタムコマンド.
@@ -165,6 +168,7 @@ command! Java :set filetype=java
 command! Python :set filetype=python
 "command! Openrc :tabe ~/.vimrc   つい書き換えてしまうのでこれは消す
 command! Refleshrc :source ~/_gvimrc
+command! -nargs=0 Cdcur cd %:p:h
 
 "-----------------------------------------------
 " プラグイン.
@@ -172,11 +176,12 @@ command! Refleshrc :source ~/_gvimrc
 " NERDTree
 " 隠しファイルを表示する
 let NERDTreeShowHidden = 1
-function! NERDTreeToggleCustom()
-	CdCurrent
-	NERDTreeToggle
-endfunction
-nnoremap <silent><C-e> :call NERDTreeToggleCustom()<CR>
+"function! NERDTreeToggleCustom()
+"	CdCurrent
+"	NERDTreeToggle
+"endfunction
+"nnoremap <silent><C-e> :call NERDTreeToggleCustom()<CR>
+nnoremap <silent><C-e> :call NERDTreeToggle<CR>
 
 " NeoComplete
 "起動時に有効
@@ -205,3 +210,6 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
+
+" Singlton
+call singleton#enable()

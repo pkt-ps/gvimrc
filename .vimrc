@@ -22,6 +22,7 @@ if dein#load_state("~/.vim/bundles")
 		call dein#add('tomasr/molokai')
 		call dein#add('thinca/vim-singleton')
 		call dein#add('vim-scripts/a.vim')
+		call dein#add('thinca/vim-quickrun')
 		"call dein#add('justmao945/vim-clang')
 		"call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 		"call dein#add('Shougo/neocomplete.vim')
@@ -181,35 +182,40 @@ let NERDTreeShowHidden = 1
 "	NERDTreeToggle
 "endfunction
 "nnoremap <silent><C-e> :call NERDTreeToggleCustom()<CR>
-nnoremap <silent><C-e> :call NERDTreeToggle<CR>
+nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 " NeoComplete
 "起動時に有効
-let g:neocomplete#enable_at_startup = 1
-" ポップアップメニューで表示される候補の数
-let g:neocomplete#max_list = 50
-"キーワードの長さ、デフォルトで80
-let g:neocomplete#max_keyword_width = 80
-let g:neocomplete#enable_ignore_case = 1
-highlight Pmenu ctermbg=6
-highlight PmenuSel ctermbg=3
-highlight PMenuSbar ctermbg=0
-inoremap <expr><CR>  pumvisible() ? neocomplete#close_popup() : "<CR>"
+"let g:neocomplete#enable_at_startup = 1
+"" ポップアップメニューで表示される候補の数
+"let g:neocomplete#max_list = 50
+""キーワードの長さ、デフォルトで80
+"let g:neocomplete#max_keyword_width = 80
+"let g:neocomplete#enable_ignore_case = 1
+"highlight Pmenu ctermbg=6
+"highlight PmenuSel ctermbg=3
+"highlight PMenuSbar ctermbg=0
+"inoremap <expr><CR>  pumvisible() ? neocomplete#close_popup() : "<CR>"
 
 " NeoSnippet
-imap <expr><CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<CR>"
-
-imap  <expr><TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ neosnippet#expandable_or_jumpable() ?
-    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
- 
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+"imap <expr><CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<CR>"
+"
+"imap  <expr><TAB>
+"    \ pumvisible() ? "\<C-n>" :
+"    \ neosnippet#expandable_or_jumpable() ?
+"    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" 
+"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+"    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+"
+"if has('conceal')
+"  set conceallevel=2 concealcursor=niv
+"endif
 
 " Singlton
-call singleton#enable()
+if has('clientserver')
+  call singleton#enable()
+endif
+
+"QuickRun
+let g:quickrun_config={'_': {'split': 'botright', 'outputter': 'quickfix'}}

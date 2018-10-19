@@ -21,8 +21,9 @@ if dein#load_state("~/.vim/bundles")
 		call dein#add('scrooloose/nerdtree')
 		call dein#add('tomasr/molokai')
 		call dein#add('thinca/vim-singleton')
-		call dein#add('vim-scripts/a.vim')
 		call dein#add('thinca/vim-quickrun')
+		call dein#add('vim-scripts/a.vim')
+		"call dein#add('fatih/vim-go')
 		"call dein#add('justmao945/vim-clang')
 		"call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 		"call dein#add('Shougo/neocomplete.vim')
@@ -181,7 +182,7 @@ let NERDTreeShowHidden = 1
 "	CdCurrent
 "	NERDTreeToggle
 "endfunction
-"nnoremap <silent><C-e> :call NERDTreeToggleCustom()<CR>
+"nnoremap <silent><C-e> :call NERDTreeToggleCustom()<CR>CD
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 " NeoComplete

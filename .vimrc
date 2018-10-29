@@ -110,7 +110,7 @@ set number
 " Windowsキーバインド
 "source $VIMRUNTIME/mswin.vim
 " Windowsキーバインドをやめて、コピー先レジスタを無名レジスタにする.
-set clipboard=unnamed,autoselect
+"set clipboard=unnamed,autoselect
 "インクリメンタル検索
 set incsearch
 set wildmenu wildmode=list:full

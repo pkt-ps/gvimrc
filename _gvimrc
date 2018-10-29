@@ -9,7 +9,8 @@ set visualbell t_vb=
 " フォントサイズ
 if has('win32')
   " Windows用
-  set guifont=MS_Gothic:h9:cSHIFTJIS
+  "set guifont=MS_Gothic:h9:cSHIFTJIS
+  set guifont=Consolas:h9,Lucida_Console:h10:w5 guifontwide=MS_Gothic:h9
   "set guifont=Consolas:h10,Lucida_Console:h10:w5 guifontwide=MS_Gothic:h10
   " 行間隔の設定
   set linespace=1

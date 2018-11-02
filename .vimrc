@@ -26,7 +26,7 @@ if dein#load_state("~/.vim/bundles")
 		"call dein#add('fatih/vim-go')
 		"call dein#add('justmao945/vim-clang')
 		"call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-		"call dein#add('Shougo/neocomplete.vim')
+		call dein#add('Shougo/neocomplete.vim')
 		"call dein#add('Shougo/neosnippet.vim')
 		"call dein#add('Shougo/neosnippet-snippets')
 	call dein#end()
@@ -136,6 +136,8 @@ set nowrap
 "command! -nargs=0 CdCurrent cd %:p:h
 " 大文字小文字無視
 set ignorecase
+" ctags
+set tags=./tags;,tags;
 
 "-----------------------------------------------
 " キーマップ.
@@ -158,8 +160,11 @@ nnoremap <ESC><ESC> :noh<CR>
 nnoremap <C-o><C-o> <ESC>a<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><ESC>
 nnoremap /  /\v
 nnoremap st :tabe<CR>
-nnoremap <C-t> :tabe<CR>
+"nnoremap <C-t> :tabe<CR>
 nnoremap <C-k><C-o> :AT<CR>
+" ctags用
+"nnoremap <C-]> g<C-]>
+nnoremap <C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 
 "-----------------------------------------------
 " カスタムコマンド.
@@ -187,16 +192,21 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 " NeoComplete
 "起動時に有効
-"let g:neocomplete#enable_at_startup = 1
-"" ポップアップメニューで表示される候補の数
-"let g:neocomplete#max_list = 50
-""キーワードの長さ、デフォルトで80
-"let g:neocomplete#max_keyword_width = 80
-"let g:neocomplete#enable_ignore_case = 1
-"highlight Pmenu ctermbg=6
-"highlight PmenuSel ctermbg=3
-"highlight PMenuSbar ctermbg=0
-"inoremap <expr><CR>  pumvisible() ? neocomplete#close_popup() : "<CR>"
+let g:neocomplete#enable_at_startup = 1
+" NeoComolete cacheを自動起動
+let g:neocomplcache_enable_at_startup = 1
+" ポップアップメニューで表示される候補の数
+let g:neocomplete#max_list = 50
+"キーワードの長さ、デフォルトで80
+let g:neocomplete#max_keyword_width = 80
+" smart case
+let g:neocomplete#enable_ignore_case = 1
+let g:neocomplcache_enable_underbar_completion = 1
+let g:neocomplcache_min_syntax_length = 3
+highlight Pmenu ctermbg=6
+highlight PmenuSel ctermbg=3
+highlight PMenuSbar ctermbg=0
+inoremap <expr><CR>  pumvisible() ? neocomplete#close_popup() : "<CR>"
 
 " NeoSnippet
 "imap <expr><CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<CR>"

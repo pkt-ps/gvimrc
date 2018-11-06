@@ -5,6 +5,8 @@ colorscheme molokai
 " パラメータ.
 "----------------------------------------------
 set visualbell t_vb=
+set guioptions-=m
+set guioptions-=T
 
 " フォントサイズ
 if has('win32')

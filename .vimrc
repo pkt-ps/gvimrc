@@ -138,6 +138,8 @@ set nowrap
 set ignorecase
 " ctags
 set tags=./tags;,tags;
+" backspace
+set backspace=indent,eol,start
 
 "-----------------------------------------------
 " キーマップ.

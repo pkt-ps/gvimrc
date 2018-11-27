@@ -14,21 +14,8 @@ set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
 "以下定型文
 if dein#load_state("~/.vim/bundles")
 	call dein#begin("~/.vim/bundles")
-		" プラグイン
-		call dein#add("~/.vim/bundles/repos/github.com/Shougo/dein.vim")
-
-		call dein#add('vim-airline/vim-airline')
-		call dein#add('scrooloose/nerdtree')
-		call dein#add('tomasr/molokai')
-		call dein#add('thinca/vim-singleton')
-		call dein#add('thinca/vim-quickrun')
-		call dein#add('vim-scripts/a.vim')
-		"call dein#add('fatih/vim-go')
-		"call dein#add('justmao945/vim-clang')
-		"call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-		"call dein#add('Shougo/neocomplete.vim')
-		"call dein#add('Shougo/neosnippet.vim')
-		"call dein#add('Shougo/neosnippet-snippets')
+		call dein#load_toml("~/.vim/toml/plugin.toml", {'lazy': 0})
+		call dein#load_toml("~/.vim/toml/plugin_lazy.toml", {'lazy': 1})
 	call dein#end()
 	call dein#save_state()
 endif

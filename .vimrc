@@ -34,42 +34,6 @@ autocmd ColorScheme * highlight Comment ctermfg=22 guifg=#00b500 guibg=#300060
 " カラースキーム
 colorscheme molokai
 
-" pluginで
-" https://sites.google.com/site/fudist/Home/vim-nihongo-ban/-vimrc-sample
-""""""""""""""""""""""""""""""
-" 挿入モード時、ステータスラインの色を変更
-""""""""""""""""""""""""""""""
-"let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
-"
-"if has('syntax')
-"  augroup InsertHook
-"    autocmd!
-"    autocmd InsertEnter * call s:StatusLine('Enter')
-"    autocmd InsertLeave * call s:StatusLine('Leave')
-"  augroup END
-"endif
-"
-"let s:slhlcmd = ''
-"function! s:StatusLine(mode)
-"  if a:mode == 'Enter'
-"    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-"    silent exec g:hi_insert
-"  else
-"    highlight clear StatusLine
-"    silent exec s:slhlcmd
-"  endif
-"endfunction
-"
-"function! s:GetHighlight(hi)
-"  redir => hl
-"  exec 'highlight '.a:hi
-"  redir END
-"  let hl = substitute(hl, '[\r\n]', '', 'g')
-"  let hl = substitute(hl, 'xxx', '', '')
-"  return hl
-"endfunction
-"""""""""""""""""""""""""""""""
-
 "-----------------------------------------------
 " パラメータ.
 "----------------------------------------------
@@ -94,10 +58,6 @@ set listchars=tab:>.,trail:_,extends:>,precedes:<,nbsp:%
 set showtabline=2
 "行番号表示"
 set number
-" Windowsキーバインド
-"source $VIMRUNTIME/mswin.vim
-" Windowsキーバインドをやめて、コピー先レジスタを無名レジスタにする.
-"set clipboard=unnamed,autoselect
 "インクリメンタル検索
 set incsearch
 set wildmenu wildmode=list:full
@@ -117,14 +77,8 @@ set shiftwidth=4
 set visualbell t_vb=
 " 折り返しなし
 set nowrap
-" カレントディレクトリ同期
-"set autochdir
-"autocmd BufEnter * lcd %:p:h
-"command! -nargs=0 CdCurrent cd %:p:h
 " 大文字小文字無視
 set ignorecase
-" ctags
-set tags=./tags;,tags;
 " backspace
 set backspace=indent,eol,start
 
@@ -149,10 +103,7 @@ nnoremap <ESC><ESC> :noh<CR>
 nnoremap <C-o><C-o> <ESC>a<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><ESC>
 nnoremap /  /\v
 nnoremap st :tabe<CR>
-"nnoremap <C-t> :tabe<CR>
 nnoremap <C-k><C-o> :AT<CR>
-" ctags用
-"nnoremap <C-]> g<C-]>
 nnoremap <C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 
 "-----------------------------------------------
@@ -172,50 +123,9 @@ command! -nargs=0 Cdcur cd %:p:h
 " NERDTree
 " 隠しファイルを表示する
 let NERDTreeShowHidden = 1
-"function! NERDTreeToggleCustom()
-"	CdCurrent
-"	NERDTreeToggle
-"endfunction
-"nnoremap <silent><C-e> :call NERDTreeToggleCustom()<CR>CD
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
-
-" NeoComplete
-""起動時に有効
-"let g:neocomplete#enable_at_startup = 1
-"" NeoComolete cacheを自動起動
-"let g:neocomplcache_enable_at_startup = 1
-"" ポップアップメニューで表示される候補の数
-"let g:neocomplete#max_list = 50
-""キーワードの長さ、デフォルトで80
-"let g:neocomplete#max_keyword_width = 80
-"" smart case
-"let g:neocomplete#enable_ignore_case = 1
-"let g:neocomplcache_enable_underbar_completion = 1
-"let g:neocomplcache_min_syntax_length = 3
-"highlight Pmenu ctermbg=6
-"highlight PmenuSel ctermbg=3
-"highlight PMenuSbar ctermbg=0
-"inoremap <expr><CR>  pumvisible() ? neocomplete#close_popup() : "<CR>"
-"
-" NeoSnippet
-"imap <expr><CR> neosnippet#expandable() ? "\<Plug>(neosnippet_expand)" : "\<CR>"
-"
-"imap  <expr><TAB>
-"    \ pumvisible() ? "\<C-n>" :
-"    \ neosnippet#expandable_or_jumpable() ?
-"    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-" 
-"smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-"    \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
-"
-"if has('conceal')
-"  set conceallevel=2 concealcursor=niv
-"endif
 
 " Singlton
 if has('clientserver')
   call singleton#enable()
 endif
-
-"QuickRun
-let g:quickrun_config={'_': {'split': 'botright', 'outputter': 'quickfix'}}

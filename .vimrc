@@ -1,5 +1,6 @@
 ﻿"Windows対策
 set runtimepath+=~/.vim
+set packpath^=~/.vim
 
 "------------------------------------
 " Dein Setup

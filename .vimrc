@@ -31,7 +31,7 @@ endif
 "------------------------------------
 
 "　コメントの色を変更.
-autocmd ColorScheme * highlight Comment ctermfg=22 guifg=#00b500 guibg=#300060
+autocmd ColorScheme * highlight Comment ctermfg=40 guifg=#00b500 guibg=#300060
 " カラースキーム
 colorscheme molokai
 

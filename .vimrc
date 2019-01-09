@@ -113,9 +113,7 @@ command! Cpp :set filetype=cpp
 command! Ruby :set filetype=ruby
 command! Java :set filetype=java
 command! Python :set filetype=python
-"command! Openrc :tabe ~/.vimrc   つい書き換えてしまうのでこれは消す
-command! Refleshrc :source ~/_gvimrc
-command! -nargs=0 Cdcur cd %:p:h
+command! -nargs=0 CdCurrent cd %:p:h
 
 "-----------------------------------------------
 " プラグイン.

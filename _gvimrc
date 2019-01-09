@@ -46,44 +46,8 @@ if filereadable(g:save_window_file)
   execute 'source' g:save_window_file
 endif
 
-" https://sites.google.com/site/fudist/Home/vim-nihongo-ban/-vimrc-sample
-""""""""""""""""""""""""""""""
-" 挿入モード時、ステータスラインの色を変更
-""""""""""""""""""""""""""""""
-"let g:hi_insert = 'highlight StatusLine guifg=darkblue guibg=darkyellow gui=none ctermfg=blue ctermbg=yellow cterm=none'
-"
-"if has('syntax')
-"  augroup InsertHook
-"    autocmd!
-"    autocmd InsertEnter * call s:StatusLine('Enter')
-"    autocmd InsertLeave * call s:StatusLine('Leave')
-"  augroup END
-"endif
-"
-"let s:slhlcmd = ''
-"function! s:StatusLine(mode)
-"  if a:mode == 'Enter'
-"    silent! let s:slhlcmd = 'highlight ' . s:GetHighlight('StatusLine')
-"    silent exec g:hi_insert
-"  else
-"    highlight clear StatusLine
-"    silent exec s:slhlcmd
-"  endif
-"endfunction
-"
-"function! s:GetHighlight(hi)
-"  redir => hl
-"  exec 'highlight '.a:hi
-"  redir END
-"  let hl = substitute(hl, '[\r\n]', '', 'g')
-"  let hl = substitute(hl, 'xxx', '', '')
-"  return hl
-"endfunction
-""""""""""""""""""""""""""""""
-
 " 個別のタブの表示設定をします
 function! GuiTabLabel()
-  " タブで表示する文字列の初期化をします
   let l:label = ''
 
   " タブに含まれるバッファ(ウィンドウ)についての情報をとっておきます。
@@ -112,11 +76,3 @@ function! GuiTabLabel()
   " 表示文字列を返します
   return l:label
 endfunction
-
-"-----------------------------------------------
-" カスタムコマンド.
-"----------------------------------------------
-command! Opengrc :tabe ~/_gvimrc   "つい書き換えてしまうのでこれは消す
-command! Refleshgrc :source ~/_gvimrc
-
-

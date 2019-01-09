@@ -15,5 +15,5 @@ if exists( ":CompilerSet" ) != 2
 endif
 
 
-CompilerSet makeprg=\"C:\\Program\ Files\\hsp30\\hscl\"\ %
+CompilerSet makeprg=hspc\ -dwrC\ %:p:h\\main.hsp
 CompilerSet errorformat=%f\(%l)%*[^0-9]%n\ :\ %m

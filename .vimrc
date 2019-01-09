@@ -128,3 +128,12 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 if has('clientserver')
   call singleton#enable()
 endif
+
+"HSP
+autocmd BufRead *.hsp call FileTypeHsp()
+function FileTypeHsp()
+  compiler hsp
+  set filetype=hsp
+endfunction
+au QuickfixCmdPost make,grep,grepadd,vimgrep copen
+let $LANG='ja_JP.SJIS'

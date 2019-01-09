@@ -11,7 +11,7 @@
 "  \(HSPを普通の場所にインストールしてない|バージョンが違う)方は
 "  どうぞ。
 "   
-      let s:hspath = 'C:\Program Files\hsp30\hsphelp'
+      let s:hspath = 'C:\Program Files\hsp35\hsphelp'
 
 
 " 無駄な改行コードを削除

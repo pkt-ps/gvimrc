@@ -15,5 +15,9 @@ if exists( ":CompilerSet" ) != 2
 endif
 
 
-CompilerSet makeprg=hspc\ -dwrC\ %:p:h\\main.hsp
+if has('win32')
+	CompilerSet makeprg=hspc\ -dwrC\ %:p:h\\main.hsp
+else
+	CompilerSet makeprg=hspcmp\ %:p:h/main.hsp
+endif
 CompilerSet errorformat=%f\(%l)%*[^0-9]%n\ :\ %m

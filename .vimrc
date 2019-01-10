@@ -46,9 +46,6 @@ set fileformats=unix,dos,mac
 source $VIMRUNTIME/delmenu.vim
 set langmenu=ja_jp.utf-8
 source $VIMRUNTIME/menu.vim
-" Git for Windows
-set grepprg=grep\ -n
-let $PATH .= ';C:\Program Files\Git\usr\bin'
 "format
  set fencs=utf-8,sjis,cp932,euc-jp,iso-2022-jp,ucs-bom,ucs-2le,ucs-2
  set fileformats=unix,dos,mac
@@ -82,6 +79,12 @@ set nowrap
 set ignorecase
 " backspace
 set backspace=indent,eol,start
+
+if has('win32')
+	" Git for Windows
+	set grepprg=grep\ -n
+	let $PATH .= ';C:\Program Files\Git\usr\bin'
+endi
 
 "-----------------------------------------------
 " キーマップ.

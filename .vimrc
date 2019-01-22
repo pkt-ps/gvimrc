@@ -11,8 +11,6 @@ endif
 
 "dein.vimディレクトリをruntimepathに追加する
 set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
-
-"以下定型文
 if dein#load_state("~/.vim/bundles")
 	call dein#begin("~/.vim/bundles")
 		call dein#load_toml("~/.vim/toml/plugin.toml", {'lazy': 0})
@@ -80,12 +78,6 @@ set ignorecase
 " backspace
 set backspace=indent,eol,start
 
-if has('win32')
-	" Git for Windows
-	set grepprg=grep\ -n
-	let $PATH .= ';C:\Program Files\Git\usr\bin'
-endi
-
 "-----------------------------------------------
 " キーマップ.
 "----------------------------------------------
@@ -107,8 +99,6 @@ nnoremap <ESC><ESC> :noh<CR>
 nnoremap <C-o><C-o> <ESC>a<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><ESC>
 nnoremap /  /\v
 nnoremap st :tabe<CR>
-nnoremap <C-k><C-o> :AT<CR>
-nnoremap <C-]> :<C-u>tab stj <C-R>=expand('<cword>')<CR><CR>
 
 "-----------------------------------------------
 " カスタムコマンド.
@@ -126,11 +116,6 @@ command! -nargs=0 CdCurrent cd %:p:h
 " 隠しファイルを表示する
 let NERDTreeShowHidden = 1
 nnoremap <silent><C-e> :NERDTreeToggle<CR>
-
-" Singlton
-if has('clientserver')
-  call singleton#enable()
-endif
 
 "HSP
 autocmd BufRead *.hsp call FileTypeHsp()

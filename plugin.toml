@@ -8,7 +8,4 @@ repo = 'vim-airline/vim-airline'
 repo = 'scrooloose/nerdtree'
 
 [[plugins]]
-repo ='thinca/vim-singleton'
-
-[[plugins]]
 repo = 'tomasr/molokai'

@@ -124,4 +124,5 @@ function FileTypeHsp()
   set filetype=hsp
 endfunction
 au QuickfixCmdPost make,grep,grepadd,vimgrep copen
-let $LANG='ja_JP.SJIS'
+"let $LANG='ja_JP.SJIS'
+set shellpipe=2>\&1\|nkf32.exe\ -uw>%s

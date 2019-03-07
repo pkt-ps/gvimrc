@@ -99,6 +99,10 @@ nnoremap <ESC><ESC> :noh<CR>
 nnoremap <C-o><C-o> <ESC>a<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><ESC>
 nnoremap /  /\v
 nnoremap st :tabe<CR>
+"CamelCase to snake_case
+nnoremap s_ viw :s/\v([A-Z])/_\L\1/g<CR>:noh<CR>
+"snake_case to CamelCase
+nnoremap s} viw :s/\v_(.)/\u\1/g<CR>:noh<CR>
 
 "-----------------------------------------------
 " カスタムコマンド.
@@ -108,6 +112,8 @@ command! Ruby :set filetype=ruby
 command! Java :set filetype=java
 command! Python :set filetype=python
 command! -nargs=0 CdCurrent cd %:p:h
+command! Snake :s/\v_(.)/\u\1/g
+command! Camel :s/\v([A-Z])/_\L\1/g
 
 "-----------------------------------------------
 " プラグイン.
@@ -119,7 +125,7 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 "HSP
 autocmd BufRead *.hsp call FileTypeHsp()
-function FileTypeHsp()
+function! FileTypeHsp()
   compiler hsp
   set filetype=hsp
 endfunction

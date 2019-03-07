@@ -44,15 +44,16 @@ for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
   exec "imap <expr> " . k . " pumvisible() ? '" . k . "' : '" . k . "\<C-X>\<C-P>\<C-N>'"
 endfor
 " ビープ音削除
-set visualbell t_vb=
+"set visualbell t_vb=
 " 折り返しなし
 set nowrap
 " カレントディレクトリ同期
-set autochdir
+"set autochdir
 " 検索結果ハイライト
 set hlsearch
 
-set ignorecase
+set smartcase
+"set ignorecase
 
 "-----------------------------------------------
 " キーマップ.
@@ -74,3 +75,7 @@ nnoremap sx :q<CR>
 
 nnoremap /  /\v
 nnoremap <ESC><ESC> :noh<CR>
+
+nnoremap s_ viw :s/\v([A-Z])/_\L\1/g<CR>:noh<CR>
+nnoremap s} viw :s/\v_(.)/\u\1/g<CR>:noh<CR>
+

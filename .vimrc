@@ -125,7 +125,7 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 "HSP
 autocmd BufRead *.hsp call FileTypeHsp()
-function! FileTypeHsp()
+function FileTypeHsp()
   compiler hsp
   set filetype=hsp
 endfunction

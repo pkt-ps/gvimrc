@@ -91,7 +91,7 @@ nnoremap s <Nop>
 nnoremap sx :tabclose<CR>
 nnoremap sn gt<CR>
 nnoremap sp gT<CR>
-nnoremap <C-p> bp<CR>
+nnoremap <C-p> :bp<CR>
 nnoremap <C-c> :ccl<CR>
 nnoremap sr :bro ol<CR>
 nnoremap se :!start .<CR>

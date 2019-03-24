@@ -91,8 +91,8 @@ nnoremap s <Nop>
 nnoremap sx :tabclose<CR>
 nnoremap sn gt<CR>
 nnoremap sp gT<CR>
-nnoremap <C-n> gt<CR>
-nnoremap <C-p> gT<CR>
+nnoremap <C-p> bp<CR>
+nnoremap <C-c> :ccl<CR>
 nnoremap sr :bro ol<CR>
 nnoremap se :!start .<CR>
 nnoremap <ESC><ESC> :noh<CR>
@@ -125,7 +125,7 @@ nnoremap <silent><C-e> :NERDTreeToggle<CR>
 
 "HSP
 autocmd BufRead *.hsp call FileTypeHsp()
-function FileTypeHsp()
+function! FileTypeHsp()
   compiler hsp
   set filetype=hsp
 endfunction

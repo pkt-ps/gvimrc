@@ -1,4 +1,6 @@
 @echo off
+echo %1
+
 setlocal enabledelayedexpansion
 
 set ARR_0=%1\main.hsp
@@ -14,14 +16,22 @@ call set it=%%ARR_!i!%%
 if defined it (
   REM echo !it!
   if exist !it! (
-    REM echo detect
-	echo !it!
-    hspc -dwrCi !it!
-    exit
+    echo detect:!it!
+	call :COMPILE !it!
+    REM exit
+	pause
   )
   set /A i+=1
   goto :BEGIN
 )
- echo "not found main.hsp"
- exit
+echo "not found main.hsp"
+exit
+
+:COMPILE
+echo %1
+echo %~dp1
+cd %~dp1
+echo on
+hspc -vdwriC %1
+exit
 

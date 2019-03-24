@@ -17,7 +17,7 @@ endif
 
 if has('win32')
 	"CompilerSet makeprg=hspc\ -dwrC\ %:p:h\\..\..\..\..\..\..\..\main.hsp
-	CompilerSet makeprg=hspc_wrapper\ %:p:h
+	CompilerSet makeprg=C:\hspc_wrapper\ %:p:h
 else
 	CompilerSet makeprg=hspcmp\ %:p:h/main.hsp
 endif

@@ -1,59 +1,19 @@
-set encoding=utf-8
-set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
-set fileformats=unix,dos,mac
-
-" これをしないとencoding=utf-8にした場合にメニュー等々が文字化けする.
-source $VIMRUNTIME/delmenu.vim
-set langmenu=ja_jp.utf-8
-source $VIMRUNTIME/menu.vim
-" Git for Windows
-set grepprg=grep\ -n
-let $PATH .= ';C:\Program Files\Git\usr\bin'
-"format
- set fencs=utf-8,sjis,cp932,euc-jp,iso-2022-jp,ucs-bom,ucs-2le,ucs-2
- set fileformats=unix,dos,mac
-"不可視文字表示.
-set list
-set listchars=tab:>.,trail:_,extends:>,precedes:<,nbsp:%
-"タブ設定"
-set showtabline=2
-"行番号表示"
+﻿"行番号表示"
 set number
-" Windowsキーバインド
-"source $VIMRUNTIME/mswin.vim
-" Windowsキーバインドをやめて、コピー先レジスタを無名レジスタにする.
-"set clipboard=unnamed,autoselect
 "インクリメンタル検索
 set incsearch
-set wildmenu wildmode=list:full
-" シンタックスハイライト
-syntax on
 " カーソルライン
-"set cursorline
 set nocursorline " 一部のファイルのシンタックスハイライトが聞くとカーソルが重いのでこっちを消す.
-"swap ファイルを生成しない
-set noswapfile
-set noundofile
-set nobackup
 " タブ幅
 set tabstop=4
 set shiftwidth=4
-" これで補完が自動で出るらしい
-set completeopt=menuone
-for k in split("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_",'\zs')
-  exec "imap <expr> " . k . " pumvisible() ? '" . k . "' : '" . k . "\<C-X>\<C-P>\<C-N>'"
-endfor
-" ビープ音削除
-"set visualbell t_vb=
 " 折り返しなし
 set nowrap
-" カレントディレクトリ同期
-"set autochdir
 " 検索結果ハイライト
 set hlsearch
 
-set smartcase
-"set ignorecase
+"set smartcase
+set ignorecase
 
 "-----------------------------------------------
 " キーマップ.

@@ -43,6 +43,10 @@ nnoremap sr :vsc Debug.Start<CR>
 nnoremap sR :vsc Debug.StopDebugging<CR>
 nnoremap sq :vsc Build.Cancel<CR>
 
-nnoremap so :vsc Debug.StepOver<CR>
-nnoremap sp :vsc Debug.StepInto<CR>
-nnoremap sO :vsc Debug.StepOut<CR>
+nnoremap si :vsc Edit.GoToDefinition<CR>
+
+nnoremap s0 :vsc Debug.StepOver<CR>
+nnoremap s- :vsc Debug.StepInto<CR>
+nnoremap s^ :vsc Debug.StepOut<CR>
+
+nnoremap se :vsc View.ErrorList<CR>

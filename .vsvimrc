@@ -50,3 +50,4 @@ nnoremap s- :vsc Debug.StepInto<CR>
 nnoremap s^ :vsc Debug.StepOut<CR>
 
 nnoremap se :vsc View.ErrorList<CR>
+nnoremap sf :vsc View.FindResults1<CR>

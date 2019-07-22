@@ -9,7 +9,7 @@ mkdir -p ~/.vim/pack/my/opt
 
 # vimrc copy
 cp .vimrc ~/.vimrc
-cp .vsvimrc ~/.vsvimrc
+cp opt_vs/.vsvimrc ~/.vsvimrc
 cp _gvimrc ~/_gvimrc
 
 #toml copy

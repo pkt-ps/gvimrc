@@ -3,7 +3,7 @@ cd ${SCRIPT_DIR}
 
 # vimrc copy
 cp ~/.vimrc .vimrc
-cp ~/.vsvimrc .vsvimrc
+cp ~/.vsvimrc ./opt_vs/.vsvimrc
 cp ~/_gvimrc _gvimrc
 
 #toml copy

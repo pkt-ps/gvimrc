@@ -39,6 +39,9 @@ nnoremap <ESC><ESC> :noh<CR>
 nnoremap s_ viw :s/\v([A-Z])/_\L\1/g<CR>:noh<CR>
 nnoremap s} viw :s/\v_(.)/\u\1/g<CR>:noh<CR>
 
+"----------------------------------------------
+" Visual Studio Command
+"----------------------------------------------
 nnoremap sr :vsc Debug.Start<CR>
 nnoremap sR :vsc Debug.StopDebugging<CR>
 nnoremap sq :vsc Build.Cancel<CR>
@@ -51,3 +54,5 @@ nnoremap s^ :vsc Debug.StepOut<CR>
 
 nnoremap se :vsc View.ErrorList<CR>
 nnoremap sf :vsc View.FindResults1<CR>
+nnoremap <C-e> :vsc View.SolutionExplorer<CR>
+nnoremap <C-t> :vsc Window.PinTab<CR>

@@ -9,3 +9,6 @@ repo = 'scrooloose/nerdtree'
 
 [[plugins]]
 repo = 'tomasr/molokai'
+
+[[plugins]]
+repo = 'mechatroner/rainbow_csv'

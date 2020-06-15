@@ -45,6 +45,7 @@ nnoremap s} viw :s/\v_(.)/\u\1/g<CR>:noh<CR>
 nnoremap sr :vsc Debug.Start<CR>
 nnoremap sR :vsc Debug.StopDebugging<CR>
 nnoremap sq :vsc Build.Cancel<CR>
+nnoremap sb :vsc Build.Compile<CR>
 
 nnoremap si :vsc Edit.GoToDefinition<CR>
 
@@ -54,5 +55,6 @@ nnoremap s^ :vsc Debug.StepOut<CR>
 
 nnoremap se :vsc View.ErrorList<CR>
 nnoremap sf :vsc View.FindResults1<CR>
+nnoremap sd :vsc View.NextError<CR>
 nnoremap <C-e> :vsc View.SolutionExplorer<CR>
 nnoremap <C-t> :vsc Window.PinTab<CR>

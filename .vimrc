@@ -96,6 +96,7 @@ nnoremap <C-c> :ccl<CR>
 nnoremap sr :bro ol<CR>
 nnoremap se :!start .<CR>
 nnoremap st :tabe<CR>
+nnoremap <C-t> :tabe<CR>
 "CamelCase to snake_case
 nnoremap s_ viw :s/\v([A-Z])/_\L\1/g<CR>:noh<CR>
 "snake_case to CamelCase
@@ -103,7 +104,7 @@ nnoremap s} viw :s/\v_(.)/\u\1/g<CR>:noh<CR>
 
 nnoremap <expr> gr ':vimgrep ;\<' . expand('<cword>') . '\>; **/* \| cw<CR>'
 nnoremap <ESC><ESC> :noh<CR>
-nnoremap <C-o><C-o> <ESC>a<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><ESC>
+"nnoremap <C-o><C-o> <ESC>a<C-r>=strftime("%Y-%m-%d %H:%M:%S")<CR><ESC>
 nnoremap /  /\v
 
 "-----------------------------------------------

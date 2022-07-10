@@ -118,6 +118,11 @@ command! -nargs=0 Cur cd %:p:h
 command! Snake :s/\v_(.)/\u\1/g
 command! Camel :s/\v([A-Z])/_\L\1/g
 command! -nargs=0 CdCurrent cd %:p:h
+command! CopyFileName :call s:CopyFileName()
+function! s:CopyFileName()
+  let @* = expand('%:p')
+  let @" = expand('%:p')
+endfunction
 
 "-----------------------------------------------
 " プラグイン.

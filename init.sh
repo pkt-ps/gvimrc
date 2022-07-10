@@ -25,4 +25,4 @@ fi
 
 # plugin(other)
 popd
-cp -rp ./plugin/* ~/.vim/pack/my/start
+#cp -rp ./plugin/* ~/.vim/pack/my/start
